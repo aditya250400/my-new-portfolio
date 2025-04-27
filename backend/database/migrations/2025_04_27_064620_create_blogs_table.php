@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('blogs', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('description');
-            $table->string('content');
-            $table->string('thumbnail');
+            $table->text('description')->nullable();
+            $table->text('content');
+            $table->string('thumbnail')->nullable();
             $table->string('slug');
-            $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
+            $table->boolean('is_show');
             $table->foreignId('blog_category_id')->references('id')->on('blog_categories')->cascadeOnDelete();
             $table->timestamps();
         });

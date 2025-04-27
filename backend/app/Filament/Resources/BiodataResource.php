@@ -7,6 +7,7 @@ use App\Filament\Resources\BiodataResource\RelationManagers;
 use App\Models\Biodata;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Components;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -23,15 +24,53 @@ class BiodataResource extends Resource
     {
         return $form
             ->schema([
-                //
-            ]);
+                Components\TextInput::make('name')
+                    ->required()
+                    ->maxLength(255),
+                Components\TextInput::make('nim')
+                    ->required()
+                    ->maxLength(255),
+
+                Components\FileUpload::make('photo')
+                    ->image()
+                    ->directory('biodata')
+                    ->maxSize(2048)
+                    ->required(),
+
+                Components\TextInput::make('headline')
+                    ->required()
+                    ->maxLength(255),
+                Components\TextInput::make('about_title')
+                    ->required()
+                    ->maxLength(255),
+
+                Components\Textarea::make('about_content')
+                    ->rows(10)
+                    ->cols(20)
+                    ->required(),
+
+                Components\TextInput::make('connection_description'),
+
+
+                Components\TextInput::make('role')
+                    ->required()
+                    ->maxLength(255),
+
+            ])->columns(1);
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('name')->searchable(),
+                Tables\Columns\TextColumn::make('nim'),
+                Tables\Columns\ImageColumn::make('photo'),
+                Tables\Columns\TextColumn::make('role'),
+                Tables\Columns\TextColumn::make('about_title')->limit(10),
+                Tables\Columns\TextColumn::make('about_content')->limit(15),
+                Tables\Columns\TextColumn::make('headline'),
+                Tables\Columns\TextColumn::make('connection_description'),
             ])
             ->filters([
                 //

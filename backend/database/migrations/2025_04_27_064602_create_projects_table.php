@@ -14,16 +14,13 @@ return new class extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('description');
-            $table->string('content');
+            $table->text('description')->nullable();
             $table->date('start_date');
             $table->date('end_date')->nullable();
-            $table->string('thumbnail');
+            $table->string('thumbnail')->nullable();
             $table->string('website_link')->nullable();
             $table->string('github_link')->nullable();
             $table->string('slug');
-            $table->string('github_link')->nullable();
-            $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->timestamps();
         });
     }

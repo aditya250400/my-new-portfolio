@@ -8,6 +8,8 @@ use App\Models\Blog;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Forms\Components;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -23,8 +25,36 @@ class BlogResource extends Resource
     {
         return $form
             ->schema([
-                //
-            ]);
+                Components\TextInput::make('title')
+                    ->required()
+                    ->maxLength(255),
+
+                Components\Textarea::make('description')
+                    ->rows(10)
+                    ->cols(20),
+
+                Components\FileUpload::make('thumbnail')
+                    ->image()
+                    ->directory('blogs')
+                    ->maxSize(3072)
+                    ->required(),
+
+                Components\RichEditor::make('content')
+                    ->fileAttachmentsDirectory('blogs'),
+
+                Components\Select::make('blog_category_id')
+                    ->relationship('blogCategory', 'name')
+                    ->searchable()
+                    ->preload()->required(),
+
+                Forms\Components\Radio::make('is_show')
+                    ->label('Is Show?')
+                    ->boolean()->required(),
+
+
+
+
+            ])->columns(1);
     }
 
     public static function table(Table $table): Table
@@ -32,6 +62,13 @@ class BlogResource extends Resource
         return $table
             ->columns([
                 //
+
+                Tables\Columns\TextColumn::make('title')->searchable(),
+                Tables\Columns\ImageColumn::make('thumbnail'),
+                IconColumn::make('is_show')
+                    ->boolean(),
+                Tables\Columns\TextColumn::make('description')->limit(10),
+                Tables\Columns\TextColumn::make('slug'),
             ])
             ->filters([
                 //

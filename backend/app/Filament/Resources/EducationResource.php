@@ -6,6 +6,7 @@ use App\Filament\Resources\EducationResource\Pages;
 use App\Filament\Resources\EducationResource\RelationManagers;
 use App\Models\Education;
 use Filament\Forms;
+use Filament\Forms\Components;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -23,15 +24,38 @@ class EducationResource extends Resource
     {
         return $form
             ->schema([
-                //
-            ]);
+                Components\TextInput::make('name')
+                    ->required()
+                    ->maxLength(255),
+
+                Components\TextInput::make('departement')
+                    ->required()
+                    ->maxLength(255),
+
+                Components\DatePicker::make('start_date')
+                    ->required(),
+
+                Components\DatePicker::make('end_date'),
+
+                Components\FileUpload::make('icon')
+                    ->image()
+                    ->directory('educations')
+                    ->maxSize(2048)
+                    ->required()
+
+            ])->columns(1);
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('name')->searchable(),
+                Tables\Columns\TextColumn::make('icon'),
+                Tables\Columns\TextColumn::make('departement'),
+                Tables\Columns\TextColumn::make('start_date'),
+                Tables\Columns\TextColumn::make('end_date'),
+                Tables\Columns\ImageColumn::make('icon'),
             ])
             ->filters([
                 //

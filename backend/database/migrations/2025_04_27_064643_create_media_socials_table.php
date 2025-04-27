@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('link');
-            $table->string('icon');
-            $table->foreignId('biodata_id')->references('id')->on('biodatas')->cascadeOnDelete();
+            $table->string('icon')->nullable();
             $table->timestamps();
         });
     }

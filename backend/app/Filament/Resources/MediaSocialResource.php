@@ -5,7 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\MediaSocialResource\Pages;
 use App\Filament\Resources\MediaSocialResource\RelationManagers;
 use App\Models\MediaSocial;
-use Filament\Forms;
+use Filament\Forms\Components;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -23,8 +23,19 @@ class MediaSocialResource extends Resource
     {
         return $form
             ->schema([
-                //
-            ]);
+                Components\TextInput::make('name')
+                    ->required()
+                    ->maxLength(255),
+
+                Components\TextInput::make('link')
+                    ->maxLength(255)->required(),
+
+                Components\FileUpload::make('icon')
+                    ->image()
+                    ->directory('media_socials')
+                    ->maxSize(3072),
+
+            ])->columns(1);
     }
 
     public static function table(Table $table): Table
@@ -32,6 +43,9 @@ class MediaSocialResource extends Resource
         return $table
             ->columns([
                 //
+                Tables\Columns\TextColumn::make('name')->searchable(),
+                Tables\Columns\TextColumn::make('link'),
+                Tables\Columns\ImageColumn::make('icon'),
             ])
             ->filters([
                 //

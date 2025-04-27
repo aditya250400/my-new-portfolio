@@ -14,9 +14,8 @@ return new class extends Migration
         Schema::create('certifications', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('description');
-            $table->text('content');
-            $table->string('thumbnail');
+            $table->text('description')->nullable();
+            $table->string('thumbnail')->nullable();
             $table->string('company_name');
             $table->string('credential')->nullable();
             $table->string('credential_link')->nullable();
@@ -24,7 +23,6 @@ return new class extends Migration
             $table->date('end_date');
             $table->boolean('is_featured');
             $table->string('slug');
-            $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->timestamps();
         });
     }

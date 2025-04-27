@@ -8,6 +8,7 @@ use App\Models\Project;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Forms\Components;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -23,7 +24,33 @@ class ProjectResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Components\TextInput::make('title')
+                    ->required()
+                    ->maxLength(255),
+
+
+                Components\FileUpload::make('thumbnail')
+                    ->image()
+                    ->directory('projects')
+                    ->maxSize(2048)
+                    ->required(),
+
+                Components\DatePicker::make('start_date')
+                    ->required(),
+
+                Components\DatePicker::make('end_date'),
+
+                Components\TextInput::make('website_link')
+                    ->maxLength(255),
+
+                Components\TextInput::make('github_link')
+                    ->maxLength(255),
+
+
+                Components\Textarea::make('description')
+                    ->rows(10)
+                    ->cols(20),
+
             ]);
     }
 
@@ -31,7 +58,14 @@ class ProjectResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('title')->searchable(),
+                Tables\Columns\ImageColumn::make('thumbnail'),
+                Tables\Columns\TextColumn::make('start_date'),
+                Tables\Columns\TextColumn::make('end_date'),
+                Tables\Columns\TextColumn::make('website_link'),
+                Tables\Columns\TextColumn::make('github_link'),
+                Tables\Columns\TextColumn::make('description')->limit(10),
+                Tables\Columns\TextColumn::make('slug'),
             ])
             ->filters([
                 //

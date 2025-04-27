@@ -15,14 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('role');
-            $table->string('description');
-            $table->text('content');
+            $table->text('description')->nullable();
             $table->date('start_date');
             $table->date('end_date')->nullable();
             $table->string('location');
-            $table->string('thumbnail');
+            $table->string('thumbnail')->nullable();
             $table->string('slug');
-            $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->timestamps();
         });
     }

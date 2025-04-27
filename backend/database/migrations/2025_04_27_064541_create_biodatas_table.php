@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('biodatas', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('nim');
+            $table->string('photo')->nullable();
             $table->string('about_title');
-            $table->string('about_content');
+            $table->text('about_content');
             $table->string('connection_description')->nullable();
             $table->string('headline');
             $table->string('role');
-            $table->string('photo');
-            $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->timestamps();
         });
     }
