@@ -52,6 +52,9 @@ class BlogResource extends Resource
                     ->boolean()->required(),
 
 
+                Components\Radio::make('is_featured')
+                    ->label('Is Featured?')
+                    ->boolean()->required(),
 
 
             ])->columns(1);
@@ -66,6 +69,8 @@ class BlogResource extends Resource
                 Tables\Columns\TextColumn::make('title')->searchable(),
                 Tables\Columns\ImageColumn::make('thumbnail'),
                 IconColumn::make('is_show')
+                    ->boolean(),
+                Tables\Columns\IconColumn::make('is_featured')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('description')->limit(10),
                 Tables\Columns\TextColumn::make('slug'),

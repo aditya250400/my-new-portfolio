@@ -24,6 +24,7 @@ class BlogCategoryResource extends Resource
 
     public static function form(Form $form): Form
     {
+
         return $form
             ->schema([
                 Components\TextInput::make('name')
@@ -36,8 +37,7 @@ class BlogCategoryResource extends Resource
                 Components\FileUpload::make('icon')
                     ->image()
                     ->directory('categories')
-                    ->maxSize(2048)
-                    ->required()
+                    ->maxSize(2048),
 
             ])->columns(1);
     }
@@ -49,6 +49,7 @@ class BlogCategoryResource extends Resource
                 Tables\Columns\TextColumn::make('name')->searchable(),
                 Tables\Columns\TextColumn::make('slug'),
                 Tables\Columns\ImageColumn::make('icon'),
+
             ])
             ->filters([
                 //

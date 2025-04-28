@@ -51,7 +51,10 @@ class ProjectResource extends Resource
                     ->rows(10)
                     ->cols(20),
 
-            ]);
+                Components\Radio::make('is_featured')
+                    ->label('Is Featurued?')
+                    ->boolean()->required(),
+            ])->columns(1);
     }
 
     public static function table(Table $table): Table
@@ -60,6 +63,8 @@ class ProjectResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('title')->searchable(),
                 Tables\Columns\ImageColumn::make('thumbnail'),
+                Tables\Columns\IconColumn::make('is_featured')
+                    ->boolean(),
                 Tables\Columns\TextColumn::make('start_date'),
                 Tables\Columns\TextColumn::make('end_date'),
                 Tables\Columns\TextColumn::make('website_link'),
