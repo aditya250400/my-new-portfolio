@@ -20,9 +20,9 @@ class LandingController extends Controller
         $biodata = Biodata::first();
         $projects = Project::query()
             ->select(['id', 'slug', 'title', 'description',  'start_date', 'end_date', 'thumbnail', 'website_link', 'github_link'])
-            ->with('skills')->where('is_featured', 1)->take(4)->orderBy('start_date', 'desc')->get();
+            ->with('skills')->where('is_featured', 1)->whereNotNull('website_link')->take(4)->orderBy('start_date', 'desc')->get();
         $blogs = Blog::query()
-            ->select(['id', 'title', 'description', 'content', 'thumbnail', 'slug', 'blog_category_id'])->with('blogCategory')->where('is_show', 1)->where('is_featured', 1)->take(6)->latest()->get();
+            ->select(['id', 'title', 'description', 'content', 'thumbnail', 'slug', 'blog_category_id', 'created_at'])->with('blogCategory')->where('is_show', 1)->where('is_featured', 1)->take(3)->latest()->get();
 
 
 

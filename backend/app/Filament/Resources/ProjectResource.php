@@ -25,6 +25,7 @@ class ProjectResource extends Resource
         return $form
             ->schema([
                 Components\TextInput::make('title')
+                    ->unique()
                     ->required()
                     ->maxLength(255),
 

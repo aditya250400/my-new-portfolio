@@ -27,7 +27,8 @@ class BlogResource extends Resource
             ->schema([
                 Components\TextInput::make('title')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->unique(),
 
                 Components\Textarea::make('description')
                     ->rows(10)

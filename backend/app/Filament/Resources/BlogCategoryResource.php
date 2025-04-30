@@ -29,6 +29,7 @@ class BlogCategoryResource extends Resource
             ->schema([
                 Components\TextInput::make('name')
                     ->required()
+                    ->unique()
                     ->maxLength(255)
                     ->afterStateUpdated(function (Set $set, $state) {
                         $set('slug', Str::slug($state));

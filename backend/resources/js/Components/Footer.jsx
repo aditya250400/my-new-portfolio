@@ -1,14 +1,14 @@
-import { usePage } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 
 export default function Footer() {
-    const { categories } = usePage().props;
+    const { categories, blogs, projects } = usePage().props;
     return (
         <>
             {/* <!-- Footer Start --> */}
             <footer className="bg-dark pt-24 pb-12">
                 <div className="container">
-                    <div className="flex flex-wrap">
-                        <div className="w-full px-4 mb-12 text-slate-300 font-medium md:w-1/3">
+                    <div className="flex flex-col lg:flex-row justify-between items-start">
+                        <div className="w-full px-4 mb-12 text-slate-300 font-medium ">
                             <h2 className="font-bold text-4xl text-white mb-5">
                                 Muhamad Rizki Aditya
                             </h2>
@@ -20,24 +20,64 @@ export default function Footer() {
                             </a>
                             <p>📌 Bandung</p>
                         </div>
-                        <div className="w-full px-4 mb-12 md:w-1/3">
-                            <h3 className="font-semibold text-white mb-5">
-                                Kategori Tulisan
+                        <div className="w-full px-4 mb-12 ">
+                            <h3 className="font-semibold text-white mb-5 ">
+                                Project
                             </h3>
-                            <ul className="text-slate-300">
-                                {categories.map((category, index) => (
+                            <ul className="text-slate-300  w-fit">
+                                {projects.map((project, index) => (
                                     <li key={index}>
                                         <a
-                                            href="#"
+                                            href={project.website_link}
+                                            target="_blank"
                                             className="inline-block text-base hover:text-primary mb-3"
                                         >
-                                            {category.name}
+                                            {project.title}
                                         </a>
                                     </li>
                                 ))}
                             </ul>
                         </div>
-                        <div className="w-full px-4 mb-12 md:w-1/3">
+                        <div className="w-full px-4 mb-12 ">
+                            <h3 className="font-semibold text-white mb-5 ">
+                                Kategori Artikel
+                            </h3>
+                            <ul className="text-slate-300  w-fit">
+                                {categories.map((category, index) => (
+                                    <li key={index}>
+                                        <Link
+                                            href={route(
+                                                "front.blogs.category",
+                                                [category.slug]
+                                            )}
+                                            className="inline-block text-base hover:text-primary mb-3"
+                                        >
+                                            {category.name}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                        <div className="w-full px-4 mb-12 ">
+                            <h3 className="font-semibold text-white mb-5">
+                                Artikel
+                            </h3>
+                            <ul className="text-slate-300">
+                                {blogs.map((blog, index) => (
+                                    <li key={index}>
+                                        <Link
+                                            href={route("front.blogs.show", [
+                                                blog.slug,
+                                            ])}
+                                            className="inline-block text-base hover:text-primary mb-3 line-clamp-1"
+                                        >
+                                            {blog.title}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                        <div className="w-full px-4 mb-12 ">
                             <h3 className="font-semibold text-white mb-5">
                                 Tautan
                             </h3>

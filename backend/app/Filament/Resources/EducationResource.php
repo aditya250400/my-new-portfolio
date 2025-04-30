@@ -25,6 +25,7 @@ class EducationResource extends Resource
         return $form
             ->schema([
                 Components\TextInput::make('name')
+                    ->unique()
                     ->required()
                     ->maxLength(255),
 

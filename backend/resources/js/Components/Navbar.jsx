@@ -1,6 +1,9 @@
+import { Link, usePage } from "@inertiajs/react";
 import { useEffect, useState } from "react";
+import SearchBlog from "./SearchBlog";
 
 export default function Navbar() {
+    const { url } = usePage();
     const [isOpen, setIsOpen] = useState(false);
     const [isDark, setIsDark] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
@@ -69,14 +72,26 @@ export default function Navbar() {
             >
                 <div className="container">
                     <div className="flex items-center justify-between relative">
-                        <div className="px-4">
-                            <a
-                                href="#home"
+                        <div className="px-4 flex items-center gap-[30px]">
+                            <Link
+                                href={`/`}
                                 className="font-bold text-primary block py-6"
                             >
                                 MuhamadRizkiAditya
-                            </a>
+                            </Link>
+
+                            {url.startsWith("/blogs") ? (
+                                <>
+                                    <div className="h-12 border-[1px]  border-r-2  border-primary hidden lg:block" />
+                                    <div className="hidden lg:block">
+                                        <SearchBlog />
+                                    </div>
+                                </>
+                            ) : (
+                                ""
+                            )}
                         </div>
+
                         <div className="flex items-center px-4">
                             <button
                                 id="hamburger"
@@ -99,36 +114,31 @@ export default function Navbar() {
                             >
                                 <ul className="block lg:flex">
                                     <li className="group">
-                                        <a
-                                            href="#home"
-                                            className="text-base text-dark py-2 mx-8 group-hover:text-primary flex dark:text-white"
+                                        <li className="lg:hidden block">
+                                            <SearchBlog />
+                                        </li>
+                                        <Link
+                                            href={route("front.projects.index")}
+                                            className={`${
+                                                url.startsWith("/projects")
+                                                    ? "text-primary font-bold dark:text-primary dark:font-bold"
+                                                    : ""
+                                            } text-base text-dark py-2 mx-8 group-hover:text-primary flex dark:text-white`}
                                         >
-                                            Beranda
-                                        </a>
+                                            Projects
+                                        </Link>
                                     </li>
                                     <li className="group">
-                                        <a
-                                            href="#about"
-                                            className="text-base text-dark py-2 mx-8 group-hover:text-primary flex dark:text-white"
+                                        <Link
+                                            href={route("front.blogs.index")}
+                                            className={`${
+                                                url.startsWith("/blogs")
+                                                    ? "text-primary font-bold "
+                                                    : ""
+                                            } text-base text-dark py-2 mx-8 group-hover:text-primary flex dark:text-white`}
                                         >
-                                            Tentang Saya
-                                        </a>
-                                    </li>
-                                    <li className="group">
-                                        <a
-                                            href="#portofolio"
-                                            className="text-base text-dark py-2 mx-8 group-hover:text-primary flex dark:text-white"
-                                        >
-                                            Portofolio
-                                        </a>
-                                    </li>
-                                    <li className="group">
-                                        <a
-                                            href="#blog"
-                                            className="text-base text-dark py-2 mx-8 group-hover:text-primary flex dark:text-white"
-                                        >
-                                            Blog
-                                        </a>
+                                            Blogs
+                                        </Link>
                                     </li>
 
                                     <li className="flex items-center pl-8 mt-3 lg:mt-0 ">

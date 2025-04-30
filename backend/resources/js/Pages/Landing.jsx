@@ -2,6 +2,8 @@ import Footer from "@/Components/Footer";
 import MasterLayour from "./Layout/MasterLayout";
 import Navbar from "@/Components/Navbar";
 import { Link } from "@inertiajs/react";
+import BlogCard from "@/Components/BlogCard";
+import ProjectCard from "@/Components/ProjectCard";
 
 export default function Landing(props) {
     const { biodata, blogs, projects } = props.page_data;
@@ -23,13 +25,10 @@ export default function Landing(props) {
                             </h2>
                             <p className="font-medium text-slate-400 mb-10 leading-relaxed">
                                 {biodata.headline}{" "}
-                                {/* <span className="text-dark font-semibold dark:text-white">
-                                    Menantang!
-                                </span> */}
                             </p>
 
                             <a
-                                href="mailto:muhamadrizkiaditya32@gmail.com"
+                                href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=muhamadrizkiaditya32@gmail.com"
                                 target="_blank"
                                 className="text-base font-semibold text-white bg-primary py-3 px-8 rounded-full hover:shadow-lg hover:opacity-80 transition duration-300 ease-in-out"
                             >
@@ -167,7 +166,7 @@ export default function Landing(props) {
 
             {/* <!-- Portofolio Section Start --> */}
             <section
-                id="portofolio"
+                id="portfolio"
                 className="pt-36 pb-16 bg-slate-100 dark:bg-slate-800"
             >
                 <div className="container">
@@ -182,32 +181,17 @@ export default function Landing(props) {
                             <p className="font-medium text-secondary text-md mb-4">
                                 Kumpulan project yang telah saya buat
                             </p>
-                            <Link href="#" className="text-primary font-bold">
+                            <Link
+                                href={route("front.projects.index")}
+                                className="text-primary font-bold"
+                            >
                                 Lihat Semua
                             </Link>
                         </div>
                     </div>
                     <div className="w-full px-4 flex flex-wrap justify-center xl:w-10/12 xl:mx-auto">
                         {projects.map((project, index) => (
-                            <div className="mb-12 p-4 md:w-1/2" key={index}>
-                                <div className="rounded-md shadow-md overflow-hidden">
-                                    <img
-                                        src={project.thumbnail}
-                                        alt={project.title}
-                                        className="w-full"
-                                    />
-                                </div>
-                                <a
-                                    href={project.website_link}
-                                    target="_blank"
-                                    className="block font-semibold text-xl text-dark mt-5 mb-3 hover:text-primary  dark:text-white "
-                                >
-                                    {project.title}
-                                </a>
-                                <p className="font-medium text-base text-secondary line-clamp-2 hover:line-clamp-none hover:cursor-pointer ">
-                                    {project.description}
-                                </p>
-                            </div>
+                            <ProjectCard item={project} key={index} />
                         ))}
                     </div>
                 </div>
@@ -231,123 +215,23 @@ export default function Landing(props) {
                             <p className="font-medium text-secondary text-md mb-4">
                                 Kumpulan blog yang telah saya buat
                             </p>
-                            <Link href="#" className="text-primary font-bold">
+                            <Link
+                                href={route("front.blogs.index")}
+                                className="text-primary font-bold"
+                            >
                                 Lihat Semua
                             </Link>
                         </div>
                     </div>
                 </div>
 
-                <div className="flex flex-wrap">
+                <div className="flex flex-wrap max-w-screen-2xl mx-auto">
                     {blogs.map((blog, index) => (
-                        <div
-                            className="w-full px-4 lg:w-1/2 xl:w-1/3 "
-                            key={index}
-                        >
-                            <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-10 dark:bg-slate-800 relative">
-                                <img
-                                    src={blog.thumbnail}
-                                    alt={blog.title}
-                                    className="w-full"
-                                />
-                                <p className="top-5 left-5 bg-primary rounded-lg absolute p-1 font-bold text-white">
-                                    {blog.category.name}
-                                </p>
-                                <div className="py-8 px-6">
-                                    <a
-                                        href="#"
-                                        className="block mb-3 font-semibold text-xl text-dark hover:text-primary truncate dark:text-white"
-                                    >
-                                        {blog.title}
-                                    </a>
-                                    <p className="line-clamp-2 hover:line-clamp-none hover:cursor-pointer  font-medium text-base text-secondary mb-6">
-                                        {blog.description}
-                                    </p>
-                                    <a
-                                        href="#"
-                                        className="font-medium text-sm text-white bg-primary py-2 px-4 rounded-lg hover:opacity-80"
-                                    >
-                                        Baca Selengkapnya
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                        <BlogCard item={blog} key={index} />
                     ))}
                 </div>
             </section>
             {/* <!-- Blog Section End --> */}
-
-            {/* <!-- Contact Section Start --> */}
-            {/* <section id="contact" className="pt-36 pb-32 dark:bg-slate-800">
-                <div className="container">
-                    <div className="w-full px-4">
-                        <div className="max-w-xl mx-auto text-center mb-16">
-                            <h4 className="font-semibold text-lg text-primary mb-2">
-                                Contact
-                            </h4>
-                            <h2 className="font-bold text-dark text-3xl mb-4 dark:text-white">
-                                Hubungi Saya
-                            </h2>
-                            <p className="font-medium text-secondary text-md">
-                                Lorem ipsum dolor sit amet consectetur,
-                                adipisicing elit. Sequi, nesciunt.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <form>
-                    <div className="w-full lg:w-2/3 lg:mx-auto">
-                        <div className="w-full px-4 mb-8">
-                            <label
-                                htmlFor="name"
-                                className="text-base text-primary font-bold"
-                            >
-                                Nama
-                            </label>
-                            <input
-                                type="text"
-                                name="name"
-                                id="name"
-                                className="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary"
-                            />
-                        </div>
-                        <div className="w-full px-4 mb-8">
-                            <label
-                                htmlFor="email"
-                                className="text-base text-primary font-bold"
-                            >
-                                Email
-                            </label>
-                            <input
-                                type="email"
-                                name="email"
-                                id="email"
-                                className="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary"
-                            />
-                        </div>
-                        <div className="w-full px-4 mb-8">
-                            <label
-                                htmlFor="message"
-                                className="text-base text-primary font-bold"
-                            >
-                                Pesan
-                            </label>
-                            <textarea
-                                name="message"
-                                id="message"
-                                className="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary h-32"
-                            ></textarea>
-                        </div>
-                        <div className="w-full px-4">
-                            <button className="w-full text-base font-semibold bg-primary py-3 px-8 rounded-full text-white hover:shadow-lg transition duration-500 hover:opacity-80">
-                                Kirim
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </section> */}
-            {/* <!-- Contact Section End --> */}
         </>
     );
 }

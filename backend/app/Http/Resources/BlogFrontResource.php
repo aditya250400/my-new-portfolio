@@ -23,9 +23,11 @@ class BlogFrontResource extends JsonResource
             'content' => $this->content,
             'thumbnail' => $this->thumbnail ? Storage::url($this->thumbnail) : null,
             'slug' => $this->slug,
+            'created_at' => $this->created_at->format('d M, Y'),
             'category' =>  [
                 'id' => $this->blogCategory?->id,
                 'name' => $this->blogCategory?->name,
+                'slug' => $this->blogCategory?->slug,
                 'icon' => $this->blogCategory?->icon ? Storage::url($this->blogCategory->icon) : null,
 
             ],
